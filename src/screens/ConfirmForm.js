@@ -27,31 +27,53 @@ export default class ConfirmForm extends Component {
         inputJobdesc: '',
       },
       secondForm: {
-        haveLaptop: 'Yes',
+        haveLaptop: '',
         address: '',
         phoneNumber: '',
       },
     };
   }
 
-  async componentDidMount() {
-    if (
-      AsyncStorage.getItem('firstForm') &&
-      AsyncStorage.getItem('secondForm')
-    ) {
-      try {
-        const jsonValue = await AsyncStorage.getItem('firstForm');
-        const jsonValue2 = await AsyncStorage.getItem('secondForm');
-        const val = JSON.parse(jsonValue);
-        const val2 = JSON.parse(jsonValue2);
-        this.setState({
-          firstForm: val,
-          secondForm: val2,
-        });
-      } catch (e) {
-        console.log(e);
+  componentDidMount() {
+    const {navigation} = this.props;
+    this.focusListener = navigation.addListener('focus', async () => {
+      if (
+        AsyncStorage.getItem('firstForm') &&
+        AsyncStorage.getItem('secondForm')
+      ) {
+        try {
+          const jsonValue = await AsyncStorage.getItem('firstForm');
+          const jsonValue2 = await AsyncStorage.getItem('secondForm');
+          const val = JSON.parse(jsonValue);
+          const val2 = JSON.parse(jsonValue2);
+          if( val !== null && val2 !== null){
+            this.setState({
+              firstForm: val,
+              secondForm: val2,
+            });
+          } else {
+            this.setState({
+              firstForm: {
+                firstName: '',
+                lastName: '',
+                jobdesc: [],
+                gender: '',
+                email: '',
+                inputJobdesc: '',
+              },
+              secondForm: {
+                haveLaptop: '',
+                address: '',
+                phoneNumber: '',
+              },
+            })
+            this.props.navigation.navigate('FirstForm')
+          }
+        } catch (e) {
+          console.log(e);
+        }
       }
-    }
+    });
   }
 
   submit = async () => {
@@ -63,7 +85,7 @@ export default class ConfirmForm extends Component {
         backgroundColor: '#6A4029',
         color: '#fff',
       });
-      this.props.navigation.navigate('SecondForm')
+      this.props.navigation.navigate('Dashboard');
     } catch (e) {
       console.log(e);
     }
