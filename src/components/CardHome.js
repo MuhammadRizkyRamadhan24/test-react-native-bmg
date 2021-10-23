@@ -17,7 +17,7 @@ export default function CardHome(props) {
   const item = props.item
   return (
     <View>
-      <TouchableOpacity style={styles.wrapperCard}>
+      <TouchableOpacity onPress={props.func} style={styles.wrapperCard}>
         <Image
           style={styles.cardImage}
           source={{

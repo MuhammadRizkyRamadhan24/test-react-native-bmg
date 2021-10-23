@@ -3,8 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
+  ActivityIndicator,
   Dimensions,
   ScrollView,
   TextInput,
@@ -65,7 +64,6 @@ export default class Home extends Component {
           topRated: response.data.results,
           isLoading: false,
         });
-        console.log(this.state.nowPlaying[0]);
       })
       .catch(error => {
         console.log(error);
@@ -83,7 +81,6 @@ export default class Home extends Component {
   }
 
   render() {
-    const url = 'https://www.themoviedb.org/t/p/w220_and_h330_face';
     return (
       <>
         {this.state.isLoading === false ? (
@@ -148,7 +145,16 @@ export default class Home extends Component {
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
                     data={this.state.nowPlaying}
-                    renderItem={({item}) => <CardHome item={item} />}
+                    renderItem={({item}) => (
+                      <CardHome
+                        item={item}
+                        func={() =>
+                          this.props.navigation.navigate('MovieDetail', {
+                            id: item.id,
+                          })
+                        }
+                      />
+                    )}
                   />
                 </View>
 
@@ -167,7 +173,16 @@ export default class Home extends Component {
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
                     data={this.state.topRated}
-                    renderItem={({item}) => <CardHome item={item} />}
+                    renderItem={({item}) => (
+                      <CardHome
+                        item={item}
+                        func={() =>
+                          this.props.navigation.navigate('MovieDetail', {
+                            id: item.id,
+                          })
+                        }
+                      />
+                    )}
                   />
                 </View>
 
@@ -186,25 +201,32 @@ export default class Home extends Component {
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
                     data={this.state.upComing}
-                    renderItem={({item}) => <CardHome item={item} />}
+                    renderItem={({item}) => (
+                      <CardHome
+                        item={item}
+                        func={() =>
+                          this.props.navigation.navigate('MovieDetail', {
+                            id: item.id,
+                          })
+                        }
+                      />
+                    )}
                   />
                 </View>
 
-                <View style={styles.bottom}/>
+                <View style={styles.bottom} />
               </ScrollView>
             </View>
           </View>
         ) : (
-          <View style={styles.wrapper}>
-            <Text>Loading</Text>
+          <View style={styles.wrapperLoading}>
+            <ActivityIndicator size="large" color="#FF7314" />
           </View>
         )}
       </>
     );
   }
 }
-
-const win = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   fontBold: {
@@ -237,6 +259,13 @@ const styles = StyleSheet.create({
 
   wrapper: {
     flex: 1,
+    backgroundColor: '#F4F4F4',
+  },
+  wrapperLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F4F4F4',
   },
   wrapperContent: {
     flex: 1,
@@ -262,7 +291,7 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
   },
   bottom: {
-      height: 20,
-      width: '100%',
-  }
+    height: 20,
+    width: '100%',
+  },
 });

@@ -11,6 +11,7 @@ import SecondForm from './src/screens/SecondForm';
 import ConfirmForm from './src/screens/ConfirmForm';
 import Home from './src/screens/Home';
 import Search from './src/screens/Search';
+import ItemDetail from './src/screens/MovieDetail'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -56,6 +57,11 @@ const App = props => {
           <Stack.Screen
             name="Dashboard"
             component={drawer}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MovieDetail"
+            component={ItemDetail}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
