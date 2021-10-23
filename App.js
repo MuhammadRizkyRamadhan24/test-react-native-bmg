@@ -4,42 +4,41 @@ import {NativeBaseProvider} from 'native-base';
 import FlashMessage from 'react-native-flash-message';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-// import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 
 import FirstForm from './src/screens/FirstForm';
 import SecondForm from './src/screens/SecondForm';
 import ConfirmForm from './src/screens/ConfirmForm';
+import Home from './src/screens/Home';
+import Search from './src/screens/Search';
 
 const Stack = createStackNavigator();
-// const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
-// const drawer = () => {
-//   return (
-//     <Drawer.Navigator
-//       drawerStyle={styles.drawer}
-//       drawerContent={props => <DrawerContent {...props} />}>
-//       <Drawer.Screen name="Home" component={Home} />
-//       <Drawer.Screen name="Search" component={Search} />
-//       <Drawer.Screen name="EditProfile" component={EditProfile} />
-//       <Drawer.Screen name="Profile" component={Profile} />
-//       <Drawer.Screen name="Promo" component={Promo} />
-//     </Drawer.Navigator>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   drawer: {
-//     backgroundColor: 'transparent',
-//     width: 324,
-//   },
-// });
+const drawer = (props) => {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Dashboard"
+      op
+      screenOptions={{
+        drawerActiveTintColor: '#FF7314',
+        drawerInactiveTintColor: '#393534',
+        headerShown: false
+      }}
+      
+      >
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Search" component={Search} />
+    </Drawer.Navigator>
+  );
+};
 
 const App = props => {
   return (
     <NavigationContainer>
       <NativeBaseProvider>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
             name="FirstForm"
             component={FirstForm}
             options={{headerShown: false}}
@@ -52,6 +51,11 @@ const App = props => {
           <Stack.Screen
             name="ConfirmForm"
             component={ConfirmForm}
+            options={{headerShown: false}}
+          /> */}
+          <Stack.Screen
+            name="Dashboard"
+            component={drawer}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
