@@ -4,7 +4,9 @@ import {NativeBaseProvider} from 'native-base';
 import FlashMessage from 'react-native-flash-message';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {LogBox } from 'react-native';
+LogBox.ignoreLogs(['Reanimated 2']);
 
 import FirstForm from './src/screens/FirstForm';
 import SecondForm from './src/screens/SecondForm';
