@@ -76,6 +76,14 @@ export default class Home extends Component {
     });
   };
 
+  toScreenSearch = () => {
+    if(this.state.search !== ''){
+      this.props.navigation.navigate('Search', {
+        search: this.state.search,
+      })
+    }
+  }
+
   componentDidMount() {
     this.getMovies();
   }
@@ -120,11 +128,8 @@ export default class Home extends Component {
                       <TextInput
                         placeholder="Find film"
                         onChangeText={this.handleChange}
-                        onSubmitEditing={() =>
-                          this.props.navigation.navigate('Search', {
-                            search: this.state.search,
-                          })
-                        }
+                        onSubmitEditing={this.toScreenSearch}
+                        style={styles.input}
                       />
                     </View>
                   </View>
@@ -282,6 +287,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: '2%',
     borderRadius: 999,
     marginVertical: '5%',
+  },
+  input: {
+    width: '90%',
+    fontFamily: 'OpenSans-Bold'
   },
   wrapperMovies: {
     padding: '5%',

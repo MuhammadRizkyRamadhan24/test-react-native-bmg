@@ -6,24 +6,27 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  ScrollView,
-  TextInput,
-  ImageBackground,
-  FlatList,
 } from 'react-native';
+
+import noImage from '../../assets/images/noImage.png';
 
 export default function CardHome(props) {
   const url = 'https://www.themoviedb.org/t/p/w220_and_h330_face';
-  const item = props.item
+  const item = props.item;
   return (
     <View>
       <TouchableOpacity onPress={props.func} style={styles.wrapperCard}>
-        <Image
-          style={styles.cardImage}
-          source={{
-            uri: `${url}${item.poster_path}`,
-          }}
-        />
+        {item.poster_path !== null ? (
+          <Image
+            style={styles.cardImage}
+            source={{
+              uri: `${url}${item.poster_path}`,
+            }}
+          />
+        ) : (
+          <Image style={styles.cardImage} source={noImage} />
+        )}
+
         <Text
           style={[
             styles.fontBold,
@@ -87,8 +90,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardImage: {
-    width: '100%',
-    height: 190,
+    width: win.width / 3,
+    height: win.width / 2,
     resizeMode: 'contain',
     marginBottom: '5%',
     borderRadius: 10,

@@ -82,7 +82,7 @@ export default class ConfirmForm extends Component {
       showMessage({
         message: 'Submit success!',
         type: 'success',
-        backgroundColor: '#6A4029',
+        backgroundColor: '#22BB33',
         color: '#fff',
       });
       this.props.navigation.navigate('Dashboard');

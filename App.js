@@ -39,7 +39,7 @@ const App = props => {
     <NavigationContainer>
       <NativeBaseProvider>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="FirstForm"
             component={FirstForm}
             options={{headerShown: false}}
@@ -53,7 +53,7 @@ const App = props => {
             name="ConfirmForm"
             component={ConfirmForm}
             options={{headerShown: false}}
-          /> */}
+          />
           <Stack.Screen
             name="Dashboard"
             component={drawer}

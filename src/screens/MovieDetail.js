@@ -10,12 +10,13 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
-  Alert,
 } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+
+import noImage from '../../assets/images/noImage.png';
 
 export default class MovieDetail extends Component {
   constructor(props) {
@@ -69,7 +70,6 @@ export default class MovieDetail extends Component {
 
   render() {
     const url = 'https://www.themoviedb.org/t/p/w220_and_h330_face';
-    console.log(this.state.movieDetails);
     const countries = [];
     const genres = [];
     if (this.state.isLoading === false) {
@@ -162,12 +162,16 @@ export default class MovieDetail extends Component {
                 }}
                 resizeMode="cover">
                 <View style={styles.wrapperContent}>
-                  <Image
-                    style={styles.image}
-                    source={{
-                      uri: `${url}${this.state.movieDetails.poster_path}`,
-                    }}
-                  />
+                  {this.state.movieDetails.poster_path !== null ? (
+                    <Image
+                      style={styles.image}
+                      source={{
+                        uri: `${url}${this.state.movieDetails.poster_path}`,
+                      }}
+                    />
+                  ) : (
+                    <Image style={styles.image} source={noImage} />
+                  )}
                   <View style={styles.contentDetail}>
                     <Text
                       style={[
@@ -322,7 +326,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: win.width / 2,
-    height: 300,
+    height: win.width / 1,
     resizeMode: 'contain',
     marginBottom: '5%',
     borderRadius: 10,
